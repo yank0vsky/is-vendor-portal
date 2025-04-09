@@ -6,7 +6,8 @@ function handleRegistrationSubmit(event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
     // --- Get form elements ---
-    const nameInput = document.getElementById('name');
+    const firstNameInput = document.getElementById('first-name');
+    const lastNameInput = document.getElementById('last-name');
     const companyInput = document.getElementById('company');
     const emailInput = document.getElementById('email');
     const roleInput = document.getElementById('role');
@@ -15,16 +16,15 @@ function handleRegistrationSubmit(event) {
     // --- Basic Validation (Check if fields are filled) ---
     // HTML5 'required' attribute handles most basic cases,
     // but extra JS validation can be added here if needed.
-    if (!nameInput.value || !companyInput.value || !emailInput.value || !roleInput.value || !companySizeSelect.value) {
+    if (!firstNameInput.value || !lastNameInput.value || !companyInput.value || !emailInput.value || !roleInput.value || !companySizeSelect.value) {
         alert('Please fill in all required fields.');
         return; // Stop execution if validation fails
     }
 
-
-
     // --- Prepare data for local storage ---
     const vendorData = {
-        name: nameInput.value.trim(),
+        firstName: firstNameInput.value.trim(),
+        lastName: lastNameInput.value.trim(),
         company: companyInput.value.trim(),
         email: emailInput.value.trim(), // Make sure this is captured correctly
         role: roleInput.value.trim(),
@@ -36,7 +36,6 @@ function handleRegistrationSubmit(event) {
         },
         projects: [] // Initialize empty projects array
     };
-
 
     // --- Save to Local Storage ---
     try {

@@ -147,7 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateVendorStatusUI() {
         if (vendorData && vendorNameEl && vendorCompanyEl && vendorRoleEl) {
-            vendorNameEl.textContent = vendorData.name || 'N/A';
+            // Combine first and last name for display
+            const fullName = `${vendorData.firstName || ''} ${vendorData.lastName || ''}`.trim() || 'N/A';
+            vendorNameEl.textContent = fullName;
             vendorCompanyEl.textContent = vendorData.company || 'N/A';
             vendorRoleEl.textContent = vendorData.role || 'N/A';
         } else if (vendorNameEl && vendorCompanyEl && vendorRoleEl) {
@@ -428,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
             createdAt: new Date().toISOString(),
             members: [
                 {
-                    name: vendorData.name,
+                    name: `${vendorData.firstName || ''} ${vendorData.lastName || ''}`.trim(),
                     email: vendorData.email,
                     role: 'manager',
                     status: 'Active'

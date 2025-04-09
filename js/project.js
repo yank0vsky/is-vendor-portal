@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectDescriptionEl = document.getElementById('project-description');
     const teamListContainer = document.getElementById('team-list-container'); // Container for table/message
     const inviteForm = document.getElementById('invite-member-form');
-    const inviteNameInput = document.getElementById('invite-name');
+    const inviteFirstNameInput = document.getElementById('invite-first-name');
+    const inviteLastNameInput = document.getElementById('invite-last-name');
     const inviteEmailInput = document.getElementById('invite-email');
     const inviteRoleSelect = document.getElementById('invite-role');
     const notificationArea = document.getElementById('notification-area');
@@ -399,18 +400,19 @@ document.addEventListener('DOMContentLoaded', () => {
      */
      function handleInviteMember(event) {
         event.preventDefault();
-        if (!currentProject || !vendorData || !inviteNameInput || !inviteEmailInput || !inviteRoleSelect) {
+        if (!currentProject || !vendorData || !inviteFirstNameInput || !inviteLastNameInput || !inviteEmailInput || !inviteRoleSelect) {
              console.error("Invite form elements missing or data not loaded.");
              showNotification("Error: Could not process invitation.", "error");
              return;
         }
 
-        const name = inviteNameInput.value.trim();
+        const firstName = inviteFirstNameInput.value.trim();
+        const lastName = inviteLastNameInput.value.trim();
         const email = inviteEmailInput.value.trim().toLowerCase();
         const role = inviteRoleSelect.value;
 
-        if (!name || !email) {
-            showNotification('Please fill in Name and Email.', 'error');
+        if (!firstName || !lastName || !email) {
+            showNotification('Please fill in all required fields.', 'error');
             return;
         }
         if (!/\S+@\S+\.\S+/.test(email)) {
@@ -423,8 +425,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Combine first and last name for the member object
+        const fullName = `${firstName} ${lastName}`.trim();
+
         const newMember = {
-            name: name,
+            name: fullName,
             email: email,
             role: role,
             status: 'Invite Sent' // Set status for new invite
@@ -440,7 +445,8 @@ document.addEventListener('DOMContentLoaded', () => {
             renderTeamList(); // Update table
             showNotification(`Invitation sent successfully to ${email}.`, 'success');
             // Clear form
-            inviteNameInput.value = '';
+            inviteFirstNameInput.value = '';
+            inviteLastNameInput.value = '';
             inviteEmailInput.value = '';
             inviteRoleSelect.value = 'member'; // Reset back to default value
         } else {
