@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmation - Invent Store Vendor Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Add link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="confirmation-content">
+            <i class="fas fa-check-circle confirmation-icon"></i>
+            <h1>Thank You for Your Registration!</h1>
+            <p class="confirmation-message">To activate your account, please follow the instructions that we sent to your email address.</p>
+            
+            <div class="email-info">
+                <p><i class="fas fa-envelope"></i> An email has been sent to <span id="user-email">your email address</span></p>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="go-to-inbox-button" class="button-primary">
+                    <i class="fas fa-inbox"></i> Go to Inbox
+                </button>
+            </div>
+            
+            <div class="additional-info">
+                <p>If you don't see the email, please check your spam folder or contact <a href="mailto:support@invent.us">support@invent.us</a> for assistance.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get user email from local storage for personalization
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const vendorData = JSON.parse(localStorage.getItem('inventStoreVendorData'));
+                if (vendorData && vendorData.email) {
+                    document.getElementById('user-email').textContent = vendorData.email;
+                }
+            } catch (error) {
+                console.error('Error retrieving email from local storage:', error);
+            }
+            
+            // Set up event listener for the Go to Inbox button
+            document.getElementById('go-to-inbox-button').addEventListener('click', function() {
+                window.location.href = 'simulated-inbox.html';
+            });
+        });
+    </script>
+
+    <style>
+        /* Additional styles specific to the confirmation page */
+        .confirmation-content {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .confirmation-icon {
+            font-size: 5rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-message {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .email-info {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        
+        .email-info p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .email-info i {
+            color: #5a67d8;
+            margin-right: 10px;
+        }
+        
+        .action-buttons {
+            margin-bottom: 30px;
+        }
+        
+        .action-buttons .button-primary {
+            display: inline-block;
+            width: auto;
+            background-color: #5a67d8;
+            font-size: 1.1rem;
+            padding: 12px 30px;
+        }
+        
+        .action-buttons .button-primary i {
+            margin-right: 10px;
+        }
+        
+        .additional-info {
+            color: #6c757d;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .additional-info a {
+            color: #5a67d8;
+            text-decoration: none;
+        }
+        
+        .additional-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</body>
+</html> 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Listing - Invent Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Notification Area -->
+        <div id="notification-area" class="notification"></div>
+
+        <nav class="breadcrumbs">
+            <a href="dashboard.html">Dashboard</a> > <a href="#" id="breadcrumb-project-link">Project Details</a> > Marketing Listing
+        </nav>
+
+        <h1 id="project-name-heading">Loading Project...</h1>
+        <p id="project-description">Loading description...</p>
+
+        <!-- Marketing Listing Info Section -->
+        <section class="marketing-info-section card">
+            <h2>Marketing Listing Information</h2>
+            <div class="marketing-info-content">
+                <p class="marketing-description">
+                    A marketing listing allows you to showcase your app in the Invent Store marketplace. 
+                    Creating a listing helps you get statistics about users interested in your app, 
+                    generate leads who request demos, and track installation requests. 
+                    Fill out the form below to create your marketing listing.
+                </p>
+            </div>
+        </section>
+
+        <!-- Marketing Listing Form Section -->
+        <section class="marketing-form-section card">
+            <h2>Marketing Listing Form</h2>
+            <form id="marketing-listing-form">
+                <!-- Vendor Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Vendor Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="vendor-name">Vendor Name <span class="required">*</span></label>
+                        <input type="text" id="vendor-name" name="vendor-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vendor-description">Vendor Description <span class="char-count">(0/250)</span></label>
+                        <textarea id="vendor-description" name="vendor-description" maxlength="250" rows="3"></textarea>
+                        <p class="field-note">Provide a brief description of your company.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vendor-logo">Vendor Logo</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="vendor-logo" name="vendor-logo" accept="image/*" class="file-input">
+                            <div class="file-upload-button">
+                                <i class="fas fa-upload"></i> Choose File
+                            </div>
+                            <div class="file-name" id="vendor-logo-filename">No file chosen</div>
+                        </div>
+                        <p class="field-note">Upload your company logo. Recommended size: 200x200px.</p>
+                    </div>
+                </div>
+                
+                <!-- App Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">App Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="app-name">App Name <span class="required">*</span></label>
+                        <input type="text" id="app-name" name="app-name" required maxlength="100">
+                        <p class="field-note">Must be unique, maximum 100 characters.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="app-category">Category <span class="required">*</span></label>
+                        <select id="app-category" name="app-category" required>
+                            <option value="">Select a category</option>
+                            <option value="portfolio-management">Portfolio Management</option>
+                            <option value="crm">CRM</option>
+                            <option value="financial-planning">Financial Planning</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="app-description">App Description <span class="required">*</span> <span class="char-count">(0/500)</span></label>
+                        <textarea id="app-description" name="app-description" maxlength="500" rows="5" required></textarea>
+                        <p class="field-note">Provide a detailed description of your app.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="app-short-description">App Short Description <span class="required">*</span> <span class="char-count">(0/200)</span></label>
+                        <textarea id="app-short-description" name="app-short-description" maxlength="200" rows="3" required></textarea>
+                        <p class="field-note">A brief summary that will appear in search results.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="app-thumbnail">App Thumbnail <span class="required">*</span></label>
+                        <div class="file-upload-container">
+                            <input type="file" id="app-thumbnail" name="app-thumbnail" accept=".svg,.png,.jpg,.jpeg" class="file-input" required>
+                            <div class="file-upload-button">
+                                <i class="fas fa-upload"></i> Choose File
+                            </div>
+                            <div class="file-name" id="app-thumbnail-filename">No file chosen</div>
+                        </div>
+                        <p class="field-note">SVG (preferred), PNG or JPG. 4:3 ratio recommended.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="app-previews">App Previews <span class="required">*</span></label>
+                        <div class="file-upload-container">
+                            <input type="file" id="app-previews" name="app-previews" accept=".png,.jpg,.jpeg" class="file-input" multiple required>
+                            <div class="file-upload-button">
+                                <i class="fas fa-upload"></i> Choose Files
+                            </div>
+                            <div class="file-name" id="app-previews-filename">No files chosen</div>
+                        </div>
+                        <p class="field-note">PNG or JPG screenshots of your app. Upload at least one preview.</p>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Submit Marketing Listing</button>
+                </div>
+            </form>
+        </section>
+
+        <div class="navigation-footer">
+            <a href="#" id="back-to-project-link">« Back to Project</a>
+        </div>
+    </div>
+
+    <script src="js/marketingListing.js"></script>
+</body>
+</html> 

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Inbox - Simulated</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Add link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container inbox-container">
+        <div class="inbox-header">
+            <h1><i class="fas fa-inbox"></i> Email Inbox</h1>
+            <p class="inbox-subtitle">This is a simulated inbox for demonstration purposes</p>
+        </div>
+        
+        <div class="email-list">
+            <div class="email-item unread" id="vendor-registration-email">
+                <div class="email-info">
+                    <div class="email-sender">
+                        <i class="fas fa-certificate priority-icon" title="Important"></i>
+                        <span class="sender-name">Invent Store</span>
+                        <span class="sender-email">&lt;store@invent.us&gt;</span>
+                    </div>
+                    <div class="email-time">Just now</div>
+                </div>
+                <div class="email-subject">
+                    <strong>Vendor Registration - Welcome to the Invent Store Vendor Portal</strong>
+                </div>
+                <div class="email-preview">
+                    Thank you for registering with Invent Store Vendor Portal. Click below to activate your account and get started...
+                </div>
+            </div>
+            
+            <!-- Additional simulated emails to make the inbox look realistic -->
+            <div class="email-item">
+                <div class="email-info">
+                    <div class="email-sender">
+                        <span class="sender-name">Newsletter Service</span>
+                        <span class="sender-email">&lt;news@example.com&gt;</span>
+                    </div>
+                    <div class="email-time">Yesterday</div>
+                </div>
+                <div class="email-subject">
+                    Weekly Tech Industry Updates
+                </div>
+                <div class="email-preview">
+                    This week in tech: New innovations, market trends, and upcoming events that you shouldn't miss...
+                </div>
+            </div>
+            
+            <div class="email-item">
+                <div class="email-info">
+                    <div class="email-sender">
+                        <span class="sender-name">Cloud Services</span>
+                        <span class="sender-email">&lt;no-reply@cloudservices.com&gt;</span>
+                    </div>
+                    <div class="email-time">2 days ago</div>
+                </div>
+                <div class="email-subject">
+                    Your subscription will renew soon
+                </div>
+                <div class="email-preview">
+                    Your subscription for Cloud Developer Services will automatically renew in 7 days. No action is required...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulated Email Modal -->
+    <div class="email-modal hidden" id="email-modal">
+        <div class="email-modal-content">
+            <div class="email-modal-header">
+                <h2>Vendor Registration - Welcome to the Invent Store Vendor Portal</h2>
+                <button class="modal-close-btn" id="email-close-btn">&times;</button>
+            </div>
+            <div class="email-modal-details">
+                <p><strong>From:</strong> Invent Store &lt;store@invent.us&gt;</p>
+                <p><strong>To:</strong> <span id="user-email-display">you@example.com</span></p>
+                <p><strong>Subject:</strong> Vendor Registration - Welcome to the Invent Store Vendor Portal</p>
+            </div>
+            <div class="email-modal-body">
+                <div class="email-content">
+                    <div class="email-logo">
+                        <i class="fas fa-store"></i> Invent Store
+                    </div>
+                    
+                    <h3>Welcome to the Invent Store Vendor Portal!</h3>
+                    
+                    <p>Dear <span id="user-name-display">Vendor</span>,</p>
+                    
+                    <p>Thank you for registering as a vendor with Invent Store! We're excited to have you on board. Your account has been created, and you're just one step away from accessing our vendor portal.</p>
+                    
+                    <p>To activate your account and get started, please click the button below:</p>
+                    
+                    <div class="email-action">
+                        <a href="dashboard.html" class="email-button" id="activate-account-btn">Activate Your Account</a>
+                    </div>
+                    
+                    <p>Your access credentials:</p>
+                    <ul>
+                        <li><strong>Username:</strong> <span id="user-email-creds">your email address</span></li>
+                        <li><strong>Portal URL:</strong> <a href="dashboard.html">store.invent.us/vendor-portal/open</a></li>
+                    </ul>
+                    
+                    <p>After activation, you'll be able to:</p>
+                    <ul>
+                        <li>Review and sign required vendor documents</li>
+                        <li>Create and manage your vendor projects</li>
+                        <li>Access our developer tools and resources</li>
+                        <li>Manage your team members and permissions</li>
+                    </ul>
+                    
+                    <p>If you have any questions or need assistance, please contact our vendor support team at <a href="mailto:vendor-support@invent.us">vendor-support@invent.us</a>.</p>
+                    
+                    <p>We look forward to our partnership!</p>
+                    
+                    <p class="email-signature">
+                        Best regards,<br>
+                        The Invent Store Team
+                    </p>
+                    
+                    <div class="email-footer">
+                        <p>© 2023 Invent Store. All rights reserved.</p>
+                        <p><small>This is an automated message, please do not reply to this email.</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="email-modal-backdrop hidden" id="email-modal-backdrop"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get user data from local storage
+            try {
+                const vendorData = JSON.parse(localStorage.getItem('inventStoreVendorData'));
+                if (vendorData) {
+                    if (vendorData.email) {
+                        document.getElementById('user-email-display').textContent = vendorData.email;
+                        document.getElementById('user-email-creds').textContent = vendorData.email;
+                    }
+                    if (vendorData.name) {
+                        document.getElementById('user-name-display').textContent = vendorData.name;
+                    }
+                }
+            } catch (error) {
+                console.error('Error retrieving user data from local storage:', error);
+            }
+            
+            // Set up event listeners
+            const emailItem = document.getElementById('vendor-registration-email');
+            const emailModal = document.getElementById('email-modal');
+            const emailModalBackdrop = document.getElementById('email-modal-backdrop');
+            const emailCloseBtn = document.getElementById('email-close-btn');
+            
+            // Open email modal when clicking on the email item
+            emailItem.addEventListener('click', function() {
+                emailModal.classList.remove('hidden');
+                emailModalBackdrop.classList.remove('hidden');
+                // Mark email as read
+                emailItem.classList.remove('unread');
+            });
+            
+            // Close email modal
+            emailCloseBtn.addEventListener('click', function() {
+                emailModal.classList.add('hidden');
+                emailModalBackdrop.classList.add('hidden');
+            });
+            
+            // Close modal when clicking outside
+            emailModalBackdrop.addEventListener('click', function() {
+                emailModal.classList.add('hidden');
+                emailModalBackdrop.classList.add('hidden');
+            });
+        });
+    </script>
+
+    <style>
+        /* Inbox Styles */
+        .inbox-container {
+            max-width: 900px;
+        }
+        
+        .inbox-header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        
+        .inbox-header h1 {
+            text-align: left;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 1.8rem;
+        }
+        
+        .inbox-header h1 i {
+            color: #5a67d8;
+            margin-right: 10px;
+        }
+        
+        .inbox-subtitle {
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 0;
+        }
+        
+        .email-list {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .email-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .email-item:last-child {
+            border-bottom: none;
+        }
+        
+        .email-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .email-item.unread {
+            background-color: #f0f4ff;
+            font-weight: 500;
+        }
+        
+        .email-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .email-sender {
+            font-weight: normal;
+        }
+        
+        .email-item.unread .email-sender {
+            font-weight: bold;
+        }
+        
+        .sender-name {
+            font-weight: inherit;
+        }
+        
+        .sender-email {
+            color: #6c757d;
+            font-weight: normal;
+        }
+        
+        .email-time {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .priority-icon {
+            color: #f0ad4e;
+            margin-right: 5px;
+        }
+        
+        .email-subject {
+            margin-bottom: 5px;
+        }
+        
+        .email-preview {
+            color: #6c757d;
+            font-size: 0.9em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Email Modal Styles */
+        .email-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+        
+        .email-modal.hidden {
+            display: none;
+        }
+        
+        .email-modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .email-modal-backdrop.hidden {
+            display: none;
+        }
+        
+        .email-modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 700px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 1002;
+        }
+        
+        .email-modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .email-modal-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: #333;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .email-modal-details {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        
+        .email-modal-details p {
+            margin: 5px 0;
+        }
+        
+        .email-modal-body {
+            padding: 20px;
+        }
+        
+        .email-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .email-logo {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5a67d8;
+            margin-bottom: 20px;
+        }
+        
+        .email-logo i {
+            margin-right: 10px;
+        }
+        
+        .email-content h3 {
+            color: #5a67d8;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .email-content p {
+            margin-bottom: 15px;
+        }
+        
+        .email-content ul {
+            margin-bottom: 15px;
+        }
+        
+        .email-action {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .email-button {
+            display: inline-block;
+            background-color: #5a67d8;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .email-button:hover {
+            background-color: #434190;
+            text-decoration: none;
+        }
+        
+        .email-signature {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .email-footer {
+            border-top: 1px solid #e0e0e0;
+            margin-top: 30px;
+            padding-top: 15px;
+            font-size: 0.8rem;
+            color: #6c757d;
+            text-align: center;
+        }
+    </style>
+</body>
+</html> 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portal - Invent Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Notification Area -->
+        <div id="notification-area" class="notification"></div>
+
+        <nav class="breadcrumbs">
+            <a href="dashboard.html">Dashboard</a> > <a href="#" id="breadcrumb-project-link">Project Details</a> > Developer Portal
+        </nav>
+
+        <h1 id="project-name-heading">Loading Project...</h1>
+        <p id="project-description">Loading description...</p>
+
+        <!-- Documentation Section -->
+        <section class="developer-docs-section card">
+            <h2 id="docs-section-heading" class="collapsible-heading" aria-expanded="true" aria-controls="docs-content-wrapper">
+                Development Documentation
+                <i class="fas fa-chevron-down expand-icon"></i>
+            </h2>
+            <div id="docs-content-wrapper" class="collapsible-content">
+                <div class="docs-grid">
+                    <a href="#" class="docs-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Getting Started</h3>
+                        <p>Start building your first Invent app</p>
+                    </a>
+                    <a href="#" class="docs-card">
+                        <i class="fas fa-lock"></i>
+                        <h3>Authentication</h3>
+                        <p>Secure your app with Invent auth</p>
+                    </a>
+                    <a href="#" class="docs-card">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <h3>Widget Library</h3>
+                        <p>Explore the Invent widget components</p>
+                    </a>
+                    <a href="#" class="docs-card">
+                        <i class="fas fa-palette"></i>
+                        <h3>UI Kit</h3>
+                        <p>Design beautiful interfaces</p>
+                    </a>
+                    <a href="#" class="docs-card">
+                        <i class="fas fa-code-branch"></i>
+                        <h3>Development Paths</h3>
+                        <p>Different approaches to development</p>
+                    </a>
+                    <a href="#" class="docs-card">
+                        <i class="fas fa-book"></i>
+                        <h3>API Documentation</h3>
+                        <p>Complete API reference</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Status Section -->
+        <section class="account-status-section card">
+            <h2 id="account-section-heading" class="collapsible-heading" aria-expanded="true" aria-controls="account-content-wrapper">
+                Account Status
+                <i class="fas fa-chevron-down expand-icon"></i>
+            </h2>
+            <div id="account-content-wrapper" class="collapsible-content">
+                <div class="status-item">
+                    <div class="status-icon">
+                        <i class="fab fa-gitlab"></i>
+                    </div>
+                    <div class="status-details">
+                        <h3>GitLab</h3>
+                        <p>Access granted</p>
+                        <a href="#" class="status-link">Go to GitLab <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon">
+                        <i class="fab fa-slack"></i>
+                    </div>
+                    <div class="status-details">
+                        <h3>Slack Channel</h3>
+                        <p>Your project support channel</p>
+                        <a href="#" class="status-link">Open Slack <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Start Building Section -->
+        <section class="start-building-section card">
+            <h2>Start Building Your App</h2>
+            <div class="start-building-button-container">
+                <button id="start-building-btn" class="start-building-button">
+                    <i class="fas fa-code"></i> Start Building
+                </button>
+                <p class="start-building-description">
+                    Ready to begin development? Click the button to explore your development options.
+                </p>
+            </div>
+        </section>
+
+        <div class="navigation-footer">
+            <a href="#" id="back-to-project-link">« Back to Project</a>
+        </div>
+    </div>
+
+    <!-- Development Options Modal -->
+    <div id="modal-backdrop" class="modal-backdrop hidden"></div>
+    <div id="dev-options-modal" class="modal hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Choose Development Path</h3>
+                <button id="modal-close-button" class="modal-close" aria-label="Close modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="dev-options-container">
+                    <a href="#" class="dev-option-card">
+                        <i class="fas fa-cube"></i>
+                        <h4>Use Invent Widgets</h4>
+                        <p>Build your app using our pre-built widgets</p>
+                    </a>
+                    <a href="#" class="dev-option-card">
+                        <i class="fas fa-sliders-h"></i>
+                        <h4>Fine-tune Widgets</h4>
+                        <p>Customize our widgets for your specific needs</p>
+                    </a>
+                    <a href="#" class="dev-option-card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Custom Development</h4>
+                        <p>Develop your own app from scratch</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/developerPortal.js"></script>
+</body>
+</html> 
