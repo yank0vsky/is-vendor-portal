@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Form Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug Form Submission</h1>
+    <form id="debug-form">
+        <div class="form-group">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="lastName" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <button type="submit">Submit Form</button>
+    </form>
+
+    <div id="result">Results will appear here</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Debug page loaded');
+            
+            const form = document.getElementById('debug-form');
+            const resultDiv = document.getElementById('result');
+            
+            console.log('Form found:', !!form);
+            
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    console.log('Form submitted in debug page');
+                    
+                    const firstName = document.getElementById('first-name').value;
+                    const lastName = document.getElementById('last-name').value;
+                    const email = document.getElementById('email').value;
+                    
+                    const results = {
+                        firstName,
+                        lastName,
+                        email
+                    };
+                    
+                    console.log('Form data:', results);
+                    resultDiv.innerHTML = '<pre>' + JSON.stringify(results, null, 2) + '</pre>';
+                    
+                    const testData = {
+                        firstName,
+                        lastName,
+                        email,
+                        documents: {
+                            terms: false,
+                            agreement: false,
+                            mnda: false
+                        },
+                        projects: []
+                    };
+                    
+                    // Test localStorage
+                    try {
+                        localStorage.setItem('testStorage', JSON.stringify(testData));
+                        const readBack = JSON.parse(localStorage.getItem('testStorage'));
+                        resultDiv.innerHTML += '<p>LocalStorage test: Success</p>';
+                        resultDiv.innerHTML += '<pre>' + JSON.stringify(readBack, null, 2) + '</pre>';
+                    } catch (error) {
+                        resultDiv.innerHTML += '<p>LocalStorage test: Failed</p>';
+                        resultDiv.innerHTML += '<p>Error: ' + error.message + '</p>';
+                    }
+                });
+            } else {
+                resultDiv.innerHTML = '<p>Error: Form not found</p>';
+            }
+        });
+    </script>
+</body>
+</html> 
