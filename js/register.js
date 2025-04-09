@@ -14,20 +14,39 @@ function handleRegistrationSubmit(event) {
     const roleInput = document.getElementById('role');
     const companySizeSelect = document.getElementById('company-size');
 
-    console.log('Form elements:', { 
-        firstName: firstNameInput?.value, 
-        lastName: lastNameInput?.value, 
-        company: companyInput?.value, 
-        email: emailInput?.value, 
-        role: roleInput?.value, 
-        companySize: companySizeSelect?.value 
+    // Log whether elements were found or not
+    console.log('Form elements found:', { 
+        firstNameInput: !!firstNameInput, 
+        lastNameInput: !!lastNameInput, 
+        companyInput: !!companyInput, 
+        emailInput: !!emailInput, 
+        roleInput: !!roleInput, 
+        companySizeSelect: !!companySizeSelect 
+    });
+
+    // --- Check if any elements are null first ---
+    if (!firstNameInput || !lastNameInput || !companyInput || 
+        !emailInput || !roleInput || !companySizeSelect) {
+        console.error('One or more form elements could not be found!');
+        alert('There was a problem with the form. Please refresh the page and try again.');
+        return;
+    }
+
+    // --- Now safely check values ---
+    console.log('Form values:', { 
+        firstName: firstNameInput.value, 
+        lastName: lastNameInput.value, 
+        company: companyInput.value, 
+        email: emailInput.value, 
+        role: roleInput.value, 
+        companySize: companySizeSelect.value 
     });
 
     // --- Basic Validation (Check if fields are filled) ---
     // HTML5 'required' attribute handles most basic cases,
     // but extra JS validation can be added here if needed.
-    if (!firstNameInput?.value || !lastNameInput?.value || !companyInput?.value || 
-        !emailInput?.value || !roleInput?.value || !companySizeSelect?.value) {
+    if (!firstNameInput.value || !lastNameInput.value || !companyInput.value || 
+        !emailInput.value || !roleInput.value || !companySizeSelect.value) {
         alert('Please fill in all required fields.');
         console.log('Validation failed');
         return; // Stop execution if validation fails
@@ -69,10 +88,11 @@ function handleRegistrationSubmit(event) {
 }
 
 // --- Attach Event Listener ---
+// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded');
     const registrationForm = document.getElementById('registration-form');
-    console.log('Registration form found:', registrationForm);
+    console.log('Registration form found:', !!registrationForm);
     
     if (registrationForm) {
         registrationForm.addEventListener('submit', handleRegistrationSubmit);
