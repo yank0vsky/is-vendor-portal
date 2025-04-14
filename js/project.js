@@ -10,6 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Element References ---
     const projectNameHeading = document.getElementById('project-name-heading');
     const projectDescriptionEl = document.getElementById('project-description');
+    const projectInfoDisplay = document.getElementById('project-info-display');
+    const projectInfoForm = document.getElementById('project-info-form');
+    const editProjectInfoBtn = document.getElementById('edit-project-info-btn');
+    const cancelEditProjectInfoBtn = document.getElementById('cancel-edit-project-info-btn');
+    const saveProjectInfoBtn = document.getElementById('save-project-info-btn');
+    const editProjectNameInput = document.getElementById('edit-project-name');
+    const editProjectDescriptionInput = document.getElementById('edit-project-description');
+    
     const teamListContainer = document.getElementById('team-list-container'); // Container for table/message
     const inviteForm = document.getElementById('invite-member-form');
     const inviteFirstNameInput = document.getElementById('invite-first-name');
@@ -35,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Additional Element References
     const actionDevelopBtn = document.getElementById('action-develop');
     const actionMarketingBtn = document.getElementById('action-marketing');
+    const actionStatisticsBtn = document.getElementById('action-statistics');
 
     // --- Initialize first ---
     initialize();
@@ -615,10 +624,99 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /** --- Project Info Editing Functions --- */
+
+    /** Toggles between displaying project info and showing the edit form */
+    function toggleProjectInfoEdit(showForm) {
+        if (!projectInfoDisplay || !projectInfoForm || !editProjectNameInput || !editProjectDescriptionInput) {
+            console.error("Missing elements required for project info edit toggle.");
+            return;
+        }
+        
+        if (showForm) {
+            // Populate form with current data
+            editProjectNameInput.value = currentProject.name || '';
+            editProjectDescriptionInput.value = currentProject.description || '';
+            
+            // Show form, hide display
+            projectInfoDisplay.classList.add('hidden');
+            projectInfoForm.classList.remove('hidden');
+            editProjectNameInput.focus();
+        } else {
+            // Show display, hide form
+            projectInfoDisplay.classList.remove('hidden');
+            projectInfoForm.classList.add('hidden');
+        }
+    }
+
+    /** Handles saving the edited project information */
+    function handleSaveProjectInfo() {
+        if (!currentProject || !editProjectNameInput || !editProjectDescriptionInput) {
+             console.error("Cannot save project info: Missing data or form elements.");
+             return;
+        }
+
+        const newName = editProjectNameInput.value.trim();
+        const newDescription = editProjectDescriptionInput.value.trim();
+
+        if (!newName) {
+            showNotification("Project name cannot be empty.", "error");
+            editProjectNameInput.focus();
+            return;
+        }
+
+        // Update the project data in memory
+        currentProject.name = newName;
+        currentProject.description = newDescription;
+
+        // Attempt to save the updated vendor data
+        if (saveVendorData()) {
+            renderProjectInfo(); // Re-render the display
+            toggleProjectInfoEdit(false); // Hide the form
+            showNotification("Project information updated successfully.", "success");
+        } else {
+             // Optionally revert changes in memory if save fails
+             // For now, just show error
+             showNotification("Failed to save project information.", "error");
+        }
+    }
+
+
     /**
      * Set up event listeners for all interactive elements on the page
      */
     function setupEventListeners() {
+        // --- Project Info Edit Listeners ---
+        if (editProjectInfoBtn) {
+            editProjectInfoBtn.addEventListener('click', () => toggleProjectInfoEdit(true));
+        }
+        if (cancelEditProjectInfoBtn) {
+            cancelEditProjectInfoBtn.addEventListener('click', () => toggleProjectInfoEdit(false));
+        }
+        if (saveProjectInfoBtn) {
+            saveProjectInfoBtn.addEventListener('click', handleSaveProjectInfo);
+        }
+        
+        // Prevent Enter key submission in description textarea causing save
+        if (editProjectDescriptionInput) {
+             editProjectDescriptionInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault(); // Prevent default newline
+                    handleSaveProjectInfo(); // Submit on Enter without Shift
+                }
+            });
+        }
+        // Allow form submission via Enter on name input
+        if (editProjectNameInput) {
+             editProjectNameInput.addEventListener('keydown', (event) => {
+                 if (event.key === 'Enter') {
+                     event.preventDefault();
+                     handleSaveProjectInfo();
+                 }
+             });
+        }
+        // --- End Project Info Edit Listeners ---
+        
         // Team section collapsible
         if (teamSectionHeading) {
             teamSectionHeading.addEventListener('click', toggleTeamSection);
@@ -662,6 +760,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (actionMarketingBtn) {
             actionMarketingBtn.addEventListener('click', () => {
                 window.location.href = `marketingListing.html?id=${projectId}`;
+            });
+        }
+
+        // Statistics button
+        if (actionStatisticsBtn) {
+            actionStatisticsBtn.addEventListener('click', () => {
+                window.location.href = `project-statistics.html?id=${projectId}`;
             });
         }
 

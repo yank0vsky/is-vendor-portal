@@ -366,6 +366,13 @@ button:disabled {
     font-style: italic;
 }
 
+/* Project Buttons Container */
+.project-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 /* Create Project Button */
 #create-project-button {
     padding: 10px 15px;
@@ -380,8 +387,6 @@ button:disabled {
 #create-project-button:hover:not(:disabled) {
     background-color: #218838;
 }
-/* Disabled state handled by global button:disabled */
-
 
 /* Inline Form for New Project */
 .form-inline {
@@ -442,31 +447,111 @@ button:disabled {
     padding: 0;
     margin: 0;
 }
-#projects-list li {
-    padding: 12px 5px;
-    border-bottom: 1px dotted #e0e0e0;
+.project-list-header {
     display: flex;
-    justify-content: space-between;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 2px solid #ddd;
+}
+.project-list-item {
+    display: flex;
+    padding: 12px 10px;
+    border-bottom: 1px dotted #e0e0e0;
     align-items: center;
 }
-#projects-list li:last-child {
+.project-list-item:last-child {
     border-bottom: none;
 }
-#projects-list li a {
+.project-name-col {
+    flex: 2;
+}
+.project-status-col {
+    flex: 1;
+    text-align: left; /* Align status text to the left */
+}
+
+.status-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.status-line i {
+    margin-right: 6px;
+    width: 16px; /* Fixed width for alignment */
+    text-align: center;
+}
+
+.status-line .status-icon-active {
+    color: #28a745;
+}
+
+.status-line .status-icon-inactive {
+    color: #dc3545;
+}
+
+.project-actions-col {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* Align action button to the right */
+    align-items: center; /* Center vertically */
+}
+
+.project-list-item a {
     text-decoration: none;
     color: #0056b3;
     font-weight: bold;
     font-size: 1.1em;
 }
-#projects-list li a:hover {
+.project-list-item a:hover {
     text-decoration: underline;
     color: #003d80;
 }
 #projects-list li .no-projects { /* Style for the 'no projects' message */
     font-style: italic;
     color: #6c757d;
+    padding: 12px 5px;
 }
 
+/* Project Status Tags */
+.status-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+.status-tag.active {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+.status-tag.inactive {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+/* Project Statistics Button */
+.stats-button {
+    background-color: transparent; /* Make background transparent */
+    color: #17a2b8; /* Info blue for text/icon */
+    padding: 6px 10px;
+    border: 1px solid #17a2b8; /* Add border */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.stats-button:hover {
+    background-color: #17a2b8; /* Hover background */
+    color: white;
+}
 
 /* === Project Detail Page Styles === */
 .breadcrumbs {
@@ -482,15 +567,66 @@ button:disabled {
     text-decoration: underline;
 }
 
-#project-name-heading {
-    text-align: left; /* Override centered h1 */
+/* Project Info Section */
+.project-info-section .info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.project-info-section .info-header h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.edit-button {
+    background-color: #e9ecef;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.edit-button:hover {
+    background-color: #dee2e6;
+}
+
+#project-info-display h1 {
+    text-align: left;
     margin-bottom: 5px;
 }
 
-#project-description {
+#project-info-display p {
     margin-bottom: 25px;
     color: #555;
     font-size: 1.1em;
+}
+
+#project-info-form {
+    margin-top: 15px;
+}
+
+/* Shared styles for inline form buttons */
+.form-actions.inline-buttons {
+    padding-top: 10px;
+    text-align: right;
+    border-top: none;
+}
+
+.form-actions.inline-buttons button {
+    margin-left: 10px;
+    width: auto; /* Override default full-width */
+    display: inline-block; /* Override default block */
+    margin-top: 0; /* Reset margin */
 }
 
 /* Team Table Styling */
@@ -1333,6 +1469,8 @@ button:disabled {
     max-width: 90%;
     z-index: 1002;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-header {
@@ -1359,6 +1497,9 @@ button:disabled {
 
 .modal-body {
     padding: 25px;
+    overflow-y: auto;
+    flex: 1;
+    display: block; /* Ensure modal body is displayed */
 }
 
 .modal-footer {
@@ -1427,4 +1568,133 @@ button:disabled {
     font-size: 0.8rem;
     color: #666;
     margin-top: 5px;
+}
+
+/* === Project Statistics Page Styles === */
+.statistics-section {
+    margin-bottom: 25px;
+}
+
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.stat-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: flex-start;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: #5a67d8;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(90, 103, 216, 0.1);
+    border-radius: 50%;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-content h3 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 0 5px;
+    color: #333;
+}
+
+.stat-change {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.stat-change.positive {
+    color: #28a745;
+}
+
+.stat-change.negative {
+    color: #dc3545;
+}
+
+.stat-change.neutral {
+    color: #6c757d;
+}
+
+.stat-description {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin: 5px 0 0;
+}
+
+/* App Connection Status */
+.section-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: normal;
+    background-color: #f8d7da;
+    color: #842029;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.app-connection-message {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin-top: 15px;
+    color: #495057;
+}
+
+.app-connection-message a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.app-connection-message a:hover {
+    text-decoration: underline;
+}
+
+/* Charts placeholder */
+.charts-container {
+    margin-top: 15px;
+}
+
+.chart-placeholder {
+    height: 200px;
+    background-color: #f8f9fa;
+    border: 1px dashed #dee2e6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-style: italic;
 }

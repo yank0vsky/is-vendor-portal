@@ -361,18 +361,97 @@ document.addEventListener('DOMContentLoaded', () => {
              if (projectsListContainer) projectsListContainer.classList.add('hidden');
 
          } else {
+             // Add table header if we have projects
+             const tableHeader = document.createElement('li');
+             tableHeader.className = 'project-list-header';
+             tableHeader.innerHTML = `
+                <div class="project-name-col">Project Name</div>
+                <div class="project-status-col">Project Status</div>
+                <div class="project-actions-col">Actions</div>
+             `;
+             projectsListUl.appendChild(tableHeader);
+             
              vendorData.projects.forEach(project => {
                  const listItem = document.createElement('li');
+                 listItem.className = 'project-list-item';
+                 
+                 // Project name column
+                 const nameCol = document.createElement('div');
+                 nameCol.className = 'project-name-col';
+                 
                  const link = document.createElement('a');
-                 // Ensure project.id exists before creating the link
                  if (project.id) {
                     link.href = `project.html?id=${project.id}`;
                  } else {
-                    link.href = '#'; // Fallback if ID is somehow missing
+                    link.href = '#'; 
                     console.warn("Project missing ID:", project);
                  }
-                 link.textContent = project.name || 'Unnamed Project'; // Fallback text
-                 listItem.appendChild(link);
+                 link.textContent = project.name || 'Unnamed Project'; 
+                 nameCol.appendChild(link);
+                 listItem.appendChild(nameCol);
+                 
+                 // Status column (Combined)
+                 const statusCol = document.createElement('div');
+                 statusCol.className = 'project-status-col';
+
+                 // Marketing Status
+                 const marketingStatusDiv = document.createElement('div');
+                 marketingStatusDiv.className = 'status-line';
+                 const marketingIcon = document.createElement('i');
+                 marketingIcon.className = 'fas';
+                 const marketingText = document.createElement('span');
+                 if (project.appStatistics && project.appStatistics.hasMarketingListing) {
+                     marketingIcon.classList.add('fa-check-circle', 'status-icon-active');
+                     marketingText.textContent = ' Listed on Invent Store';
+                 } else {
+                     marketingIcon.classList.add('fa-times-circle', 'status-icon-inactive');
+                     marketingText.textContent = ' Not listed';
+                 }
+                 marketingStatusDiv.appendChild(marketingIcon);
+                 marketingStatusDiv.appendChild(marketingText);
+                 statusCol.appendChild(marketingStatusDiv);
+
+                 // App Connection Status
+                 const appStatusDiv = document.createElement('div');
+                 appStatusDiv.className = 'status-line';
+                 const appIcon = document.createElement('i');
+                 appIcon.className = 'fas';
+                 const appText = document.createElement('span');
+                 if (project.hasConnectedApp) {
+                     appIcon.classList.add('fa-check-circle', 'status-icon-active');
+                     appText.textContent = ' App connected';
+                 } else {
+                     appIcon.classList.add('fa-times-circle', 'status-icon-inactive');
+                     appText.textContent = ' App not connected';
+                 }
+                 appStatusDiv.appendChild(appIcon);
+                 appStatusDiv.appendChild(appText);
+                 statusCol.appendChild(appStatusDiv);
+                 
+                 listItem.appendChild(statusCol);
+                 
+                 // Actions column
+                 const actionsCol = document.createElement('div');
+                 actionsCol.className = 'project-actions-col';
+                 
+                 const statsButton = document.createElement('button');
+                 statsButton.className = 'stats-button';
+                 statsButton.innerHTML = '<i class="fas fa-chart-line"></i> View Statistics';
+                 statsButton.title = 'View app performance metrics';
+                 statsButton.addEventListener('click', (e) => {
+                     e.preventDefault();
+                     e.stopPropagation();
+                     if (project.id) {
+                         window.location.href = `project-statistics.html?id=${project.id}`;
+                     } else {
+                         console.error("Cannot navigate to statistics: Project ID missing.");
+                         alert("Error: Cannot view statistics for this project.");
+                     }
+                 });
+                 
+                 actionsCol.appendChild(statsButton);
+                 listItem.appendChild(actionsCol);
+                 
                  projectsListUl.appendChild(listItem);
              });
              // Show the container if list has items
@@ -384,16 +463,37 @@ document.addEventListener('DOMContentLoaded', () => {
      * Opens the Create Project modal
      */
     function openCreateProjectModal() {
-        if (!createProjectModalContainer) return;
+        if (!createProjectModalContainer) {
+            console.error('Create project modal container not found');
+            return;
+        }
         
-        // Clear form fields
+        // Ensure the form exists and is visible
         if (newProjectForm) {
+            // Reset form fields
             newProjectForm.reset();
+            // Always remove 'hidden' class in case it was previously added
+            newProjectForm.classList.remove('hidden');
+            // Make sure form is visible
+            newProjectForm.style.display = 'block';
+        } else {
+            console.error('Project form not found in modal');
+            return;
         }
         
         // Show modal
         createProjectModalContainer.classList.remove('hidden');
         document.body.style.overflow = 'hidden'; // Prevent scrolling
+        
+        // Focus on the project name input after modal is visible
+        if (projectNameInput) {
+            setTimeout(() => {
+                projectNameInput.focus();
+            }, 100); // Small delay to ensure the modal is visible
+        } else {
+            console.error('Project name input field not found');
+            return;
+        }
     }
 
     /**
@@ -504,6 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initialize() {
         vendorData = loadVendorData();
         if (vendorData) {
+            // Continue with initialization
             updateVendorStatusUI();
             renderDocumentList();
             renderProjectsList();

@@ -3,11 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invent Store Vendor Portal</title>
-    <meta http-equiv="refresh" content="0; URL=register.html">
-    <link rel="canonical" href="register.html">
+    <title>Invent Store Portal Selection</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .portal-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            background-color: #f5f7fa;
+        }
+        
+        .portal-options {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .portal-card {
+            width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .portal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .portal-icon {
+            font-size: 4rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .portal-card h2 {
+            margin: 0 0 15px;
+            color: #2c3e50;
+        }
+        
+        .portal-card p {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+        
+        .portal-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        
+        .portal-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .admin-button {
+            background-color: #2c3e50;
+        }
+        
+        .admin-button:hover {
+            background-color: #1a252f;
+        }
+    </style>
+    <!-- Add link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <p>If you are not redirected automatically, please <a href="register.html">click here</a> to access the registration page.</p>
+    <!-- App Header -->
+    <header class="app-header" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:#222;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2rem;">
+        <div class="header-title" style="font-size:1.3rem;font-weight:600;letter-spacing:0.5px;">Invent Store Prototype</div>
+        <div class="header-buttons" style="display:flex;gap:1rem;">
+            <button id="header-vendor-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#3498db;color:#fff;cursor:pointer;box-shadow:0 1px 4px rgba(52,152,219,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">Vendor Flow</button>
+            <button id="header-admin-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#ecf0f1;color:#2c3e50;cursor:pointer;box-shadow:0 1px 4px rgba(44,62,80,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#dfe6e9'" onmouseout="this.style.background='#ecf0f1'">Back-Office (Admin) Flow</button>
+        </div>
+    </header>
+    <!-- End App Header -->
+    <div class="portal-selection">
+        <h1>Welcome to Invent Store</h1>
+        <p>Select the portal you want to access</p>
+        
+        <div class="portal-options">
+            <div class="portal-card">
+                <div class="portal-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h2>Vendor Portal</h2>
+                <p>For vendors to manage their accounts, documents, and applications.</p>
+                <a href="dashboard.html" class="portal-button">Enter Vendor Portal</a>
+            </div>
+            
+            <div class="portal-card">
+                <div class="portal-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2>Admin Portal</h2>
+                <p>For administrators to manage vendors, documents, and platform settings.</p>
+                <a href="admin-dashboard.html" class="portal-button admin-button">Enter Admin Portal</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/header.js"></script>
 </body>
 </html> 

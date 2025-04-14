@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Invent Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <!-- Add link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:#222;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2rem;">
+        <div class="header-title" style="font-size:1.3rem;font-weight:600;letter-spacing:0.5px;">Invent Store Prototype</div>
+        <div class="header-buttons" style="display:flex;gap:1rem;">
+            <button id="header-vendor-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#3498db;color:#fff;cursor:pointer;box-shadow:0 1px 4px rgba(52,152,219,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">Vendor Flow</button>
+            <button id="header-admin-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#ecf0f1;color:#2c3e50;cursor:pointer;box-shadow:0 1px 4px rgba(44,62,80,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#dfe6e9'" onmouseout="this.style.background='#ecf0f1'">Back-Office (Admin) Flow</button>
+        </div>
+    </header>
+    <!-- End App Header -->
+    <div class="admin-container">
+        <!-- Admin Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Invent Store</h2>
+                <p>Admin Portal</p>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="active"><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="vendor-document-management.html"><i class="fas fa-file-contract"></i> Vendor Documents</a></li>
+                    <li><a href="vendors.html"><i class="fas fa-users"></i> Vendors</a></li>
+                </ul>
+            </nav>
+            <div class="admin-sidebar-footer">
+                <p>Logged in as: <strong>Admin User</strong></p>
+                <a href="#" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-content">
+            <header class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-header-actions">
+                    <div class="admin-search">
+                        <input type="text" placeholder="Search...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="admin-notifications">
+                        <a href="#"><i class="fas fa-bell"></i></a>
+                        <span class="notification-badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Overview -->
+            <section class="dashboard-overview">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Vendors</h3>
+                        <p class="stat-number">24</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Pending Documents</h3>
+                        <p class="stat-number">7</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Approved Vendors</h3>
+                        <p class="stat-number">18</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Active Projects</h3>
+                        <p class="stat-number">42</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="recent-activity card">
+                <h2>Recent Activity</h2>
+                <ul class="activity-list">
+                    <li>
+                        <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="activity-content">
+                            <p><strong>New Vendor:</strong> Acme Solutions registered</p>
+                            <p class="activity-time">2 hours ago</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="activity-icon"><i class="fas fa-file-signature"></i></div>
+                        <div class="activity-content">
+                            <p><strong>Document Signed:</strong> TechCorp accepted Terms & Conditions</p>
+                            <p class="activity-time">Yesterday</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="activity-icon"><i class="fas fa-upload"></i></div>
+                        <div class="activity-content">
+                            <p><strong>Document Updated:</strong> Default MNDA updated by Admin</p>
+                            <p class="activity-time">3 days ago</p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="view-all-link">View all activity</a>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+    <script src="js/header.js"></script>
+</body>
+</html> 

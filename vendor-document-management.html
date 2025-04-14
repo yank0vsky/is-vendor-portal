@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Document Management - Invent Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <!-- Add link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:#222;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2rem;">
+        <div class="header-title" style="font-size:1.3rem;font-weight:600;letter-spacing:0.5px;">Invent Store Prototype</div>
+        <div class="header-buttons" style="display:flex;gap:1rem;">
+            <button id="header-vendor-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#3498db;color:#fff;cursor:pointer;box-shadow:0 1px 4px rgba(52,152,219,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">Vendor Flow</button>
+            <button id="header-admin-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#ecf0f1;color:#2c3e50;cursor:pointer;box-shadow:0 1px 4px rgba(44,62,80,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#dfe6e9'" onmouseout="this.style.background='#ecf0f1'">Back-Office (Admin) Flow</button>
+        </div>
+    </header>
+    <!-- End App Header -->
+    <div class="admin-container">
+        <!-- Admin Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Invent Store</h2>
+                <p>Admin Portal</p>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="active"><a href="vendor-document-management.html"><i class="fas fa-file-contract"></i> Vendor Documents</a></li>
+                    <li><a href="vendors.html"><i class="fas fa-users"></i> Vendors</a></li>
+                </ul>
+            </nav>
+            <div class="admin-sidebar-footer">
+                <p>Logged in as: <strong>Admin User</strong></p>
+                <a href="#" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-content">
+            <header class="admin-header">
+                <h1>Vendor Document Management</h1>
+                <div class="admin-header-actions">
+                    <div class="admin-search">
+                        <input type="text" placeholder="Search documents...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Tabs for Document Management -->
+            <div class="document-tabs">
+                <button class="tab-button active" data-tab="default-documents">Default Document Set</button>
+                <button class="tab-button" data-tab="vendor-documents">Vendor-Specific Documents</button>
+            </div>
+
+            <!-- Default Document Set Tab Content -->
+            <section id="default-documents" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Default Document Set</h2>
+                        <p>These documents will be automatically assigned to all newly registered vendors.</p>
+                    </div>
+                    
+                    <!-- Default Documents Sub-Tabs -->
+                    <div class="subtabs">
+                        <button class="subtab-button active" data-subtab="default-documents-upload">Documents</button>
+                        <button class="subtab-button" data-subtab="default-documents-history">History</button>
+                    </div>
+                    
+                    <!-- Default Documents Upload Section -->
+                    <div id="default-documents-upload" class="subtab-content active">
+                        <!-- Upload New Default Document -->
+                        <div class="document-upload-section">
+                            <h3>Upload New Document</h3>
+                            <form id="default-document-upload-form" class="upload-form">
+                                <div class="form-group">
+                                    <label for="document-name">Document Name:</label>
+                                    <input type="text" id="document-name" name="documentName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="document-description">Document Description:</label>
+                                    <textarea id="document-description" name="documentDescription" rows="3" required 
+                                        placeholder="Enter a description that will be shown to vendors"></textarea>
+                                    <small class="form-hint">This description will be shown to vendors when they view the document</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="document-file">Document File:</label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" id="document-file" name="documentFile" required>
+                                        <label for="document-file" class="file-upload-label">
+                                            <i class="fas fa-cloud-upload-alt"></i> 
+                                            <span>Choose a file</span>
+                                        </label>
+                                        <div class="file-name" id="selected-file-name">MNDA_v2.pdf</div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="primary-button">
+                                    <i class="fas fa-upload"></i> Upload Document
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Current Default Documents -->
+                        <div class="current-documents">
+                            <h3>Current Default Documents</h3>
+                            <div class="documents-table-wrapper">
+                                <table class="documents-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Document Name</th>
+                                            <th>Description</th>
+                                            <th>Date Added</th>
+                                            <th>Added By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="default-documents-list">
+                                        <!-- Default documents will be populated by JS -->
+                                        <tr>
+                                            <td>Terms and Conditions</td>
+                                            <td>Standard terms for all vendors</td>
+                                            <td>2023-05-15 10:30</td>
+                                            <td>admin@invent.us</td>
+                                            <td class="document-actions">
+                                                <button class="action-icon" title="Preview Document"><i class="fas fa-eye"></i></button>
+                                                <button class="action-icon" title="Update Document"><i class="fas fa-pen"></i></button>
+                                                <button class="action-icon delete" title="Delete Document"><i class="fas fa-trash-alt"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vendor Agreement</td>
+                                            <td>Legal agreement for all vendors</td>
+                                            <td>2023-05-16 14:20</td>
+                                            <td>admin@invent.us</td>
+                                            <td class="document-actions">
+                                                <button class="action-icon" title="Preview Document"><i class="fas fa-eye"></i></button>
+                                                <button class="action-icon" title="Update Document"><i class="fas fa-pen"></i></button>
+                                                <button class="action-icon delete" title="Delete Document"><i class="fas fa-trash-alt"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Non-Disclosure Agreement</td>
+                                            <td>Confidentiality agreement</td>
+                                            <td>2023-05-17 09:45</td>
+                                            <td>admin@invent.us</td>
+                                            <td class="document-actions">
+                                                <button class="action-icon" title="Preview Document"><i class="fas fa-eye"></i></button>
+                                                <button class="action-icon" title="Update Document"><i class="fas fa-pen"></i></button>
+                                                <button class="action-icon delete" title="Delete Document"><i class="fas fa-trash-alt"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Default Documents History Section -->
+                    <div id="default-documents-history" class="subtab-content">
+                        <div class="history-timeline-wrapper">
+                            <div class="history-timeline">
+                                <h3>Default Documents History</h3>
+                                <ul id="default-documents-history-list">
+                                    <!-- Default documents history will be populated by JS -->
+                                    <li>
+                                        <p class="action-title">Document Added</p>
+                                        <p class="action-details">Admin <strong>Nick Yankovsky (admin@invent.us)</strong> added default document <strong>Non-Disclosure Agreement</strong></p>
+                                        <p class="action-time">2023-05-17 09:45</p>
+                                    </li>
+                                    <li>
+                                        <p class="action-title">Document Added</p>
+                                        <p class="action-details">Admin <strong>Nick Yankovsky (admin@invent.us)</strong> added default document <strong>Vendor Agreement</strong></p>
+                                        <p class="action-time">2023-05-16 14:20</p>
+                                    </li>
+                                    <li>
+                                        <p class="action-title">Document Added</p>
+                                        <p class="action-details">Admin <strong>Nick Yankovsky (admin@invent.us)</strong> added default document <strong>Terms and Conditions</strong></p>
+                                        <p class="action-time">2023-05-15 10:30</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vendor-Specific Documents Tab Content -->
+            <section id="vendor-documents" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Vendor-Specific Documents</h2>
+                        <p>Manage documents for specific vendors.</p>
+                    </div>
+                    
+                    <!-- Vendor Selection -->
+                    <div class="vendor-selection">
+                        <h3>Select Vendor</h3>
+                        <div class="form-group">
+                            <div class="vendor-search">
+                                <input type="text" id="vendor-search" placeholder="Search vendors...">
+                                <button class="search-button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="vendors-list-wrapper">
+                            <ul id="vendors-list" class="vendors-list">
+                                <!-- Sample vendor -->
+                                <li class="active" data-vendor-id="vendor-001">
+                                    <div class="vendor-info">
+                                        <span class="vendor-name">Acme Solutions</span>
+                                        <span class="vendor-email">contact@acme.com</span>
+                                    </div>
+                                </li>
+                                <li data-vendor-id="vendor-002">
+                                    <div class="vendor-info">
+                                        <span class="vendor-name">TechCorp</span>
+                                        <span class="vendor-email">info@techcorp.com</span>
+                                    </div>
+                                </li>
+                                <li data-vendor-id="vendor-003">
+                                    <div class="vendor-info">
+                                        <span class="vendor-name">Globex Corporation</span>
+                                        <span class="vendor-email">support@globex.com</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Selected Vendor Documents -->
+                    <div id="vendor-documents-container" class="vendor-documents">
+                        <div class="vendor-info">
+                            <h3>Documents for: <span id="selected-vendor-name">Acme Solutions</span></h3>
+                            <p>
+                                <strong>Email:</strong> <span id="selected-vendor-email">contact@acme.com</span>
+                                <a href="#" id="vendor-profile-link" class="vendor-profile-link"><i class="fas fa-external-link-alt"></i> View Profile</a>
+                            </p>
+                        </div>
+                        
+                        <!-- Vendor Documents Sub-Tabs -->
+                        <div class="subtabs">
+                            <button class="subtab-button active" data-subtab="vendor-documents-list-tab">Documents</button>
+                            <button class="subtab-button" data-subtab="vendor-documents-history">History</button>
+                        </div>
+                        
+                        <!-- Vendor Documents List Section -->
+                        <div id="vendor-documents-list-tab" class="subtab-content active">
+                            <!-- Upload Vendor-Specific Document -->
+                            <div class="document-upload-section">
+                                <h4>Upload Document for This Vendor</h4>
+                                <form id="vendor-document-upload-form" class="upload-form">
+                                    <div class="form-group">
+                                        <label for="vendor-document-name">Document Name:</label>
+                                        <input type="text" id="vendor-document-name" name="documentName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="vendor-document-description">Document Description:</label>
+                                        <textarea id="vendor-document-description" name="documentDescription" rows="3" required 
+                                            placeholder="Enter a description that will be shown to this vendor"></textarea>
+                                        <small class="form-hint">This description will be shown to the vendor when they view the document</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="vendor-document-file">Document File:</label>
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" id="vendor-document-file" name="documentFile" required>
+                                            <label for="vendor-document-file" class="file-upload-label">
+                                                <i class="fas fa-cloud-upload-alt"></i> 
+                                                <span>Choose a file</span>
+                                            </label>
+                                            <div class="file-name" id="vendor-selected-file-name">MNDA_v2.pdf</div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="primary-button">
+                                        <i class="fas fa-upload"></i> Upload Document
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Vendor Document List -->
+                            <div class="current-documents">
+                                <h4>Current Documents</h4>
+                                <div class="documents-table-wrapper">
+                                    <table class="documents-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Document Name</th>
+                                                <th>Description</th>
+                                                <th>Date Added</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="vendor-documents-list">
+                                            <!-- Sample vendor documents -->
+                                            <tr>
+                                                <td>Terms and Conditions</td>
+                                                <td>Standard terms for Acme Solutions</td>
+                                                <td>2023-06-01 10:30</td>
+                                                <td><span class="status-indicator status-accepted"><i class="fas fa-check-circle"></i> Accepted</span></td>
+                                                <td class="document-actions">
+                                                    <button class="action-icon" title="Preview Document"><i class="fas fa-eye"></i></button>
+                                                    <button class="action-icon" title="View History"><i class="fas fa-history"></i></button>
+                                                    <button class="action-icon" title="Update Document"><i class="fas fa-pen"></i></button>
+                                                    <button class="action-icon delete" title="Delete Document"><i class="fas fa-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vendor Agreement</td>
+                                                <td>Legal agreement for Acme Solutions</td>
+                                                <td>2023-06-01 10:30</td>
+                                                <td><span class="status-indicator status-pending"><i class="fas fa-clock"></i> Pending</span></td>
+                                                <td class="document-actions">
+                                                    <button class="action-icon" title="Preview Document"><i class="fas fa-eye"></i></button>
+                                                    <button class="action-icon" title="View History"><i class="fas fa-history"></i></button>
+                                                    <button class="action-icon" title="Update Document"><i class="fas fa-pen"></i></button>
+                                                    <button class="action-icon delete" title="Delete Document"><i class="fas fa-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Vendor Documents History Section -->
+                        <div id="vendor-documents-history" class="subtab-content">
+                            <div class="history-timeline-wrapper">
+                                <div class="history-timeline">
+                                    <h4>Document History for <span id="vendor-history-name">Acme Solutions</span></h4>
+                                    <ul id="vendor-specific-history-list">
+                                        <!-- Vendor-specific history will be populated by JS -->
+                                        <li>
+                                            <p class="action-title">Document Accepted</p>
+                                            <p class="action-details">Vendor <strong>Acme Solutions</strong> accepted document <strong>Terms and Conditions</strong></p>
+                                            <p class="action-time">2023-06-02 14:20</p>
+                                        </li>
+                                        <li>
+                                            <p class="action-title">Document Added</p>
+                                            <p class="action-details">Admin <strong>Nick Yankovsky (admin@invent.us)</strong> added document <strong>Vendor Agreement</strong> for vendor <strong>Acme Solutions</strong></p>
+                                            <p class="action-time">2023-06-01 10:30</p>
+                                        </li>
+                                        <li>
+                                            <p class="action-title">Document Added</p>
+                                            <p class="action-details">Admin <strong>Nick Yankovsky (admin@invent.us)</strong> added document <strong>Terms and Conditions</strong> for vendor <strong>Acme Solutions</strong></p>
+                                            <p class="action-time">2023-06-01 10:30</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Document History Modal -->
+    <div id="document-history-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Document History</h3>
+                <button class="close-modal-button"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="document-info">
+                    <h4 id="history-document-name">Document Name</h4>
+                    <p><strong>Vendor:</strong> <span id="history-vendor-name">Vendor Name</span></p>
+                </div>
+                <div class="history-timeline">
+                    <ul id="history-timeline-list">
+                        <!-- History timeline items will be populated by JS -->
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-button close-button">Close</button>
+                <button class="primary-button download-button">Download Document</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Document Modal -->
+    <div id="document-preview-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="preview-document-name">Document Preview</h3>
+                <button class="close-modal-button"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="document-preview">
+                    <iframe id="document-preview-iframe" class="document-preview-frame"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-button close-button">Close</button>
+                <button class="primary-button download-button">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vendor-document-management.js"></script>
+    <script src="js/header.js"></script>
+</body>
+</html> 

@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- App Header -->
+    <header class="app-header" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:#222;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2rem;">
+        <div class="header-title" style="font-size:1.3rem;font-weight:600;letter-spacing:0.5px;">Invent Store Prototype</div>
+        <div class="header-buttons" style="display:flex;gap:1rem;">
+            <button id="header-vendor-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#3498db;color:#fff;cursor:pointer;box-shadow:0 1px 4px rgba(52,152,219,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">Vendor Flow</button>
+            <button id="header-admin-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#ecf0f1;color:#2c3e50;cursor:pointer;box-shadow:0 1px 4px rgba(44,62,80,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#dfe6e9'" onmouseout="this.style.background='#ecf0f1'">Back-Office (Admin) Flow</button>
+        </div>
+    </header>
+    <!-- End App Header -->
     <div class="container">
         <!-- Notification Area -->
         <div id="notification-area" class="notification"></div>
@@ -16,8 +25,33 @@
             <a href="dashboard.html">Dashboard</a> > Project Details
         </nav>
 
-        <h1 id="project-name-heading">Loading Project...</h1>
-        <p id="project-description">Loading description...</p>
+        <!-- Project Info Section -->
+        <section class="project-info-section card">
+            <div class="info-header">
+                <h2>Project Info</h2>
+                <button id="edit-project-info-btn" class="edit-button"><i class="fas fa-edit"></i> Edit</button>
+            </div>
+            
+            <div id="project-info-display">
+                <h1 id="project-name-heading">Loading Project...</h1>
+                <p id="project-description">Loading description...</p>
+            </div>
+
+            <form id="project-info-form" class="hidden">
+                <div class="form-group">
+                    <label for="edit-project-name">Project Name <span class="required">*</span></label>
+                    <input type="text" id="edit-project-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-project-description">Description</label>
+                    <textarea id="edit-project-description" rows="3"></textarea>
+                </div>
+                <div class="form-actions inline-buttons">
+                    <button type="button" id="cancel-edit-project-info-btn" class="button-secondary">Cancel</button>
+                    <button type="button" id="save-project-info-btn" class="button-primary">Save Changes</button>
+                </div>
+            </form>
+        </section>
 
         <!-- Team Management Section -->
         <section class="project-team-section card">
@@ -79,6 +113,9 @@
         <section class="project-actions-section card">
             <h2>Project Actions</h2>
             <div class="action-buttons-container">
+                 <button class="action-button" id="action-statistics" title="View project statistics and app metrics">
+                    <i class="fas fa-chart-line"></i> App Statistics
+                 </button>
                  <button class="action-button" id="action-marketing" title="Manage marketing listing (Not implemented)">
                     <i class="fas fa-bullhorn"></i> Marketing Listing
                  </button>
@@ -121,5 +158,6 @@
     </div> <!-- End container -->
 
     <script src="js/project.js"></script>
+    <script src="js/header.js"></script>
 </body>
 </html>

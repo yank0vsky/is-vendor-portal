@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Profile - Invent Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <!-- Add link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:#222;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2rem;">
+        <div class="header-title" style="font-size:1.3rem;font-weight:600;letter-spacing:0.5px;">Invent Store Prototype</div>
+        <div class="header-buttons" style="display:flex;gap:1rem;">
+            <button id="header-vendor-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#3498db;color:#fff;cursor:pointer;box-shadow:0 1px 4px rgba(52,152,219,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">Vendor Flow</button>
+            <button id="header-admin-btn" style="padding:10px 28px;font-size:1.08rem;border-radius:4px;border:none;background:#ecf0f1;color:#2c3e50;cursor:pointer;box-shadow:0 1px 4px rgba(44,62,80,0.08);font-weight:500;transition:background 0.2s;outline:none;min-width:170px;" onmouseover="this.style.background='#dfe6e9'" onmouseout="this.style.background='#ecf0f1'">Back-Office (Admin) Flow</button>
+        </div>
+    </header>
+    <!-- End App Header -->
+    <div class="admin-container">
+        <!-- Admin Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Invent Store</h2>
+                <p>Admin Portal</p>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="vendor-document-management.html"><i class="fas fa-file-contract"></i> Vendor Documents</a></li>
+                    <li class="active"><a href="vendors.html"><i class="fas fa-users"></i> Vendors</a></li>
+                </ul>
+            </nav>
+            <div class="admin-sidebar-footer">
+                <p>Logged in as: <strong>Admin User</strong></p>
+                <a href="#" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-content">
+            <header class="admin-header">
+                <h1>Vendor Profile: <span id="vendor-name-header">Acme Solutions</span></h1>
+                <div class="admin-header-actions">
+                    <a href="vendor-document-management.html" class="primary-button">
+                        <i class="fas fa-file-contract"></i> Manage Documents
+                    </a>
+                </div>
+            </header>
+
+            <!-- Vendor Profile -->
+            <section class="vendor-profile-section">
+                <!-- Basic Info Card -->
+                <div class="card vendor-info-card">
+                    <div class="card-header">
+                        <h2>Vendor Information</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="vendor-info-grid">
+                            <div class="info-item">
+                                <label>Vendor ID</label>
+                                <p id="vendor-id">V-0012345-001</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Company Name</label>
+                                <p id="vendor-company-name">Acme Solutions</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Email</label>
+                                <p id="vendor-email">contact@acme.com</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Company Size</label>
+                                <p id="vendor-size">1-5</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Status</label>
+                                <p id="vendor-status"><span class="status-badge active">Active</span></p>
+                            </div>
+                            <div class="info-item">
+                                <label>Date Registered</label>
+                                <p id="vendor-registration-date">2023-05-10</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Representative -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Business Representative</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="representative-info">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Name</label>
+                                    <p id="rep-name">John Smith</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Role</label>
+                                    <p id="rep-role">Chief Executive Officer</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Email</label>
+                                    <p id="rep-email">john.smith@acme.com</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Phone</label>
+                                    <p id="rep-phone">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Members -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Team Members</h2>
+                    </div>
+                    <div class="card-content">
+                        <table class="team-members-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="team-members-list">
+                                <tr>
+                                    <td>Sarah Johnson</td>
+                                    <td>Finance Manager</td>
+                                    <td>sarah.johnson@acme.com</td>
+                                    <td>
+                                        <button class="action-icon" title="Send Email"><i class="fas fa-envelope"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Michael Brown</td>
+                                    <td>Technical Lead</td>
+                                    <td>michael.brown@acme.com</td>
+                                    <td>
+                                        <button class="action-icon" title="Send Email"><i class="fas fa-envelope"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Emily Davis</td>
+                                    <td>Account Manager</td>
+                                    <td>emily.davis@acme.com</td>
+                                    <td>
+                                        <button class="action-icon" title="Send Email"><i class="fas fa-envelope"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Recent Activity</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="activity-timeline">
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-file-signature"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>Document Signed:</strong> Terms and Conditions accepted</p>
+                                    <p class="activity-time">June 2, 2023 - 14:20</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-file-upload"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>Document Added:</strong> Vendor Agreement added by Admin</p>
+                                    <p class="activity-time">June 1, 2023 - 10:30</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-file-upload"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>Document Added:</strong> Terms and Conditions added by Admin</p>
+                                    <p class="activity-time">June 1, 2023 - 10:30</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>Vendor Registered:</strong> Acme Solutions registered as a vendor</p>
+                                    <p class="activity-time">May 10, 2023 - 09:15</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/vendor-profile.js"></script>
+    <script src="js/header.js"></script>
+</body>
+</html> 
